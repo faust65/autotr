@@ -6,6 +6,16 @@
     <title>autodescemas</title>
 </head>
 <body>
-    <button style="width:300px; height:300px;" onclick="">작동</button>
+    <button style="width:300px; height:300px;" onclick="start()">작동</button>
+    <button style="width:300px; height:300px;" onclick="stop()">중지</button>
+    <script>
+        function start() {
+            fetch("/process", { method: "POST" });
+        }
+
+        function stop() {
+            fetch("/stop", { method: "POST" });
+        }
+    </script>
 </body>
 </html>
