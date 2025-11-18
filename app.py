@@ -5,19 +5,14 @@ from flask import Flask, request, jsonify, render_template
 
 app=Flask(__name__)
 
-@app.route('/')
-def index():
-    return render_template('index.html')
+pt=""
+running=False
 
+def loop():
+    global running, pt
 
-@app.route('/process', methods=['POST'])
-def process():
-    pt=""
-
-    while 1:
-    
-        try:
-            if keyboard.is_pressed('esc'):
+    try:
+        if keyboard.is_pressed('esc'):
                 print("종료")
                 break
         
@@ -35,4 +30,20 @@ def process():
                 time.sleep(0.5)
         except :
             print("종료됨")
+            running=False
             break
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+
+@app.route('/process', methods=['POST'])
+def process():
+    
+
+@app.route('/stop', methods=['POST'])
+def stop():
+
+if __name__ == "__main__":
+    app.run()
