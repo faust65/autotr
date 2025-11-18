@@ -31,8 +31,8 @@ def loop():
             time.sleep(0.5)
     except :
         print("종료됨")
-        running=False
         break
+        running=False
 
 @app.route('/')
 def index():
