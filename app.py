@@ -43,12 +43,14 @@ def process():
 
     if not running:
         running=True
-        threading.thread(target=loop, daemon=True).start()
+        threading.Thread(target=loop, daemon=True).start()
+    return jsonify({"status": "started"})
 
 @app.route('/stop', methods=['POST'])
 def stop():
     global running
     running=False
+    return jsonify({"status": "stopped"})
 
 if __name__ == "__main__":
     app.run()
