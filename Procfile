@@ -1,1 +1,1 @@
-web: gunicorn autotr:app
+web: gunicorn autotr2:app
