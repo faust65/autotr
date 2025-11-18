@@ -29,10 +29,10 @@ def loop():
         
             pyperclip.copy(pt)
             time.sleep(0.5)
-        except :
-            print("종료됨")
-            running=False
-            break
+    except :
+        print("종료됨")
+        running=False
+        break
 
 @app.route('/')
 def index():
