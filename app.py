@@ -15,7 +15,7 @@ def loop():
     try:
         if keyboard.is_pressed('esc'):
                 print("종료")
-                break
+                running=False
         
         ct=pyperclip.paste()
     
@@ -31,7 +31,6 @@ def loop():
             time.sleep(0.5)
     except :
         print("종료됨")
-        break
         running=False
 
 @app.route('/')
