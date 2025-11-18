@@ -17,18 +17,18 @@ def loop():
                 print("종료")
                 break
         
-            ct=pyperclip.paste()
+        ct=pyperclip.paste()
     
-            if pt!=ct:
-                pt=ct
+        if pt!=ct:
+            pt=ct
         
-                if "판정" in pt :
-                    pt='/emas " " '+pt
-                else :
-                    pt='/desc '+pt
+            if "판정" in pt :
+                pt='/emas " " '+pt
+            else :
+                pt='/desc '+pt
         
-                pyperclip.copy(pt)
-                time.sleep(0.5)
+            pyperclip.copy(pt)
+            time.sleep(0.5)
         except :
             print("종료됨")
             running=False
