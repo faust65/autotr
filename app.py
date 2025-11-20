@@ -13,7 +13,7 @@ def index():
 @app.route('/process', methods=['POST'])
 def process():
     data = request.get_json()
-    text = data.get('text', '')
+    pt = data.get('text', '')
 
     if "판정" in pt :
         pt='/emas " " '+pt
