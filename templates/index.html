@@ -10,13 +10,13 @@
     <button style="width:300px; height:300px;" id="stop">중지</button>
     <script>
         let running = false;
-        let lastText = '';
+        let lt = '';
 
         async function onClipboardChange(text) {
             if (!running) return;
-            if (!text || text === lastText) return;
+            if (!text || text === lt) return;
 
-            lastText = text;
+            lt = text;
 
             try {
                 const response = await fetch('/process', {
@@ -28,7 +28,7 @@
                 const data = await response.json();
                 await navigator.clipboard.writeText(data.text);
 
-                console.log("변환됨:", data.text);
+                console.log(data.text);
             } catch (e) {
                 console.error(e);
             }
@@ -39,17 +39,17 @@
             running = true;
 
             try {
-                lastText = await navigator.clipboard.readText();
+                lt = await navigator.clipboard.readText();
             } catch (e) {
-                console.warn("readText 차단됨 → 첫 복사 때부터 자동 작동");
+                console.warn("1");
             }
 
-            console.log("자동 변환 시작");
+            console.log("작동");
         };
 
         document.getElementById("stop").onclick = () => {
             running = false;
-            console.log("중지됨");
+            console.log("중지");
         };
 
         navigator.clipboard.addEventListener("clipboardchange", async (e) => {
