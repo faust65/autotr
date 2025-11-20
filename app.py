@@ -16,7 +16,7 @@ def process():
     else :
         pt='/desc '+pt
 
-    return jsonify({"pt": pt})
+    return jsonify({"text": pt})
 
 if __name__ == "__main__":
     app.run()
