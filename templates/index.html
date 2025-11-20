@@ -6,8 +6,8 @@
     <title>autodescemas</title>
 </head>
 <body>
-    <button style="width:300px; height:300px;" onclick="start()">작동</button>
-    <button style="width:300px; height:300px;" onclick="stop()">중지</button>
+    <button style="width:300px; height:300px;" id="start">작동</button>
+    <button style="width:300px; height:300px;" id="stop">중지</button>
     <script>
         let itvid = null;
         let lt = '';
@@ -35,13 +35,13 @@
             }
         }
 
-        document.getElementById('startBtn').onclick = () => {
+        document.getElementById('start').onclick = () => {
             if (!itvid) {
-                itvid = setInterval(chcl, 1000); // 1초마다 감지
+                itvid = setInterval(chcl, 1000); 
             }
         };
 
-        document.getElementById('stopBtn').onclick = () => {
+        document.getElementById('stop').onclick = () => {
             if (itvid) {
                 clearInterval(itvid);
                 itvid = null;
