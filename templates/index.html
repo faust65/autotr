@@ -9,44 +9,53 @@
     <button style="width:300px; height:300px;" id="start">작동</button>
     <button style="width:300px; height:300px;" id="stop">중지</button>
     <script>
-        let itvid = null;
-        let lt = '';
+        let running = false;
+        let lastText = '';
 
-        async function chcl() {
+        async function onClipboardChange(text) {
+            if (!running) return;
+            if (!text || text === lastText) return;
+
+            lastText = text;
+
             try {
-                const clt = await navigator.clipboard.readText();
+                const response = await fetch('/process', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ text })
+                });
 
-                if (clt && clt !== lt) {
-                    lt = clt;
+                const data = await response.json();
+                await navigator.clipboard.writeText(data.text);
 
-                    const response = await fetch('/process', {
-                        method: 'POST',
-                        headers: {'Content-Type': 'application/json'},
-                        body: JSON.stringify({text: clt})
-                    });
-
-                    const data = await response.json();
-
-                    await navigator.clipboard.writeText(data.text);
-                    console.log(data.text);
-                }
-            } catch (err) {
-                console.error(err);
+                console.log("변환됨:", data.text);
+            } catch (e) {
+                console.error(e);
             }
         }
 
-        document.getElementById('start').onclick = () => {
-            if (!itvid) {
-                itvid = setInterval(chcl, 1000); 
+        document.getElementById("start").onclick = async () => {
+            if (running) return;
+            running = true;
+
+            try {
+                lastText = await navigator.clipboard.readText();
+            } catch (e) {
+                console.warn("readText 차단됨 → 첫 복사 때부터 자동 작동");
             }
+
+            console.log("자동 변환 시작");
         };
 
-        document.getElementById('stop').onclick = () => {
-            if (itvid) {
-                clearInterval(itvid);
-                itvid = null;
-            }
+        document.getElementById("stop").onclick = () => {
+            running = false;
+            console.log("중지됨");
         };
+
+        navigator.clipboard.addEventListener("clipboardchange", async (e) => {
+            const text = await e.clipboardData.getText("text/plain");
+            onClipboardChange(text);
+        });
     </script>
 </body>
 </html>
