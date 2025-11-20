@@ -28,10 +28,10 @@
                     const data = await response.json();
 
                     await navigator.clipboard.writeText(data.text);
-                    console.log('클립보드 변환 완료:', data.text);
+                    console.log(data.text);
                 }
             } catch (err) {
-                console.error('클립보드 처리 실패:', err);
+                console.error(err);
             }
         }
 
